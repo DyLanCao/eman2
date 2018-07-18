@@ -13,7 +13,7 @@ if [ ! -z ${TRAVIS} ];then
 fi
 
 if [ ! -z ${CIRCLECI} ];then
-    source ${HOME}/miniconda2/bin/activate root
+    source ${HOME}/miniconda3/bin/activate root
 fi
 
 python -m compileall -q .
@@ -25,4 +25,4 @@ conda list
 conda render recipes/eman
 conda build purge-all
 
-conda build recipes/eman -c cryoem -c defaults -c conda-forge --quiet
+conda build recipes/eman -c cryoem/label/py3 -c cryoem -c defaults -c conda-forge --quiet

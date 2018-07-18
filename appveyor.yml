@@ -2,8 +2,8 @@ environment:
 
   matrix:
     - TARGET_ARCH: x64
-      CONDA_PY: 27
-      CONDA_INSTALL_LOCN: C:\\Miniconda-x64
+      CONDA_PY: 36
+      CONDA_INSTALL_LOCN: C:\\Miniconda36-x64
 
 
 platform:
@@ -35,4 +35,4 @@ install:
 build: off
 
 test_script:
-    - conda.exe build %APPVEYOR_BUILD_FOLDER%\recipes\eman -c cryoem -c defaults -c conda-forge --quiet
+    - conda.exe build %APPVEYOR_BUILD_FOLDER%\recipes\eman -c cryoem/label/py3 -c cryoem -c defaults -c conda-forge --quiet

@@ -11,11 +11,11 @@ if [ ! -z ${TRAVIS} ];then
 
     # Following Wiki instructions at
     # http://blake.bcm.edu/emanwiki/EMAN2/COMPILE_EMAN2_ANACONDA
-    conda install eman-deps=14.0 -c cryoem -c defaults -c conda-forge --yes --quiet
+    conda install eman-deps=15.0 -c cryoem/label/py3 -c cryoem -c defaults -c conda-forge --yes --quiet
 fi
 
 if [ ! -z ${CIRCLECI} ];then
-    source ${HOME}/miniconda2/bin/activate root
+    source ${HOME}/miniconda3/bin/activate root
 fi
 
 python -m compileall -q .
