@@ -8,9 +8,9 @@ jobs:
       - checkout
       - run: source ci_support/setup_conda.sh
       - save_cache:
-          key: mini-eman-deps-14.0-2
+          key: mini-eman-deps-15.0-0
           paths:
-            - ~/miniconda2
+            - ~/miniconda3
 
 workflows:
   version: 2
