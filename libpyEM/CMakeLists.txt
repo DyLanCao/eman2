@@ -10,7 +10,6 @@ message("Boost_INCLUDE_DIR: ${Boost_INCLUDE_DIR}")
 set_target_properties(Boost::python
 					  PROPERTIES
 					  INTERFACE_COMPILE_DEFINITIONS BOOST_PYTHON_NO_PY_SIGNATURES
-					  INTERFACE_LINK_LIBRARIES Python::Python
 					  )
 if(WIN32)
 	ADD_DEFINITIONS(-DBOOST_DISABLE_ASSERTS)
@@ -35,10 +34,13 @@ function(ADD_PYSTE_LIB libname)
 			SUFFIX ${suffix}
 			)
 	
-	target_link_libraries(${libname} EM2 Boost::python)
+	target_link_libraries(${libname} EM2 Boost::python GSL::gslcblas)
+	set_property(TARGET ${libname} APPEND_STRING PROPERTY LINK_FLAGS "-undefined dynamic_lookup")
 	install(TARGETS ${libname} DESTINATION ${SP_DIR})
 endfunction()
 
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${PYTHON_INCLUDE_DIRS})
 ADD_PYSTE_LIB(pyAligner2)
 ADD_PYSTE_LIB(pyAverager2)
 ADD_PYSTE_LIB(pyCmp2)
