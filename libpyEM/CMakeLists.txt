@@ -13,10 +13,8 @@ function(ADD_PYSTE_LIB libname)
 			SUFFIX ${suffix}
 			)
 	
-	target_link_libraries(${libname} EM2 Boost::python)
-#	target_link_libraries(${libname} EM2 Boost::python GSL::gsl GSL::gslcblas)
+	target_link_libraries(${libname} EM2 Boost::python GSL::gslcblas)
 	set_property(TARGET ${libname} APPEND_STRING PROPERTY LINK_FLAGS "-undefined dynamic_lookup")
-#	set_property(TARGET ${libname} APPEND_STRING PROPERTY LINK_FLAGS -flat_namespace)
 	install(TARGETS ${libname} DESTINATION ${SP_DIR})
 endfunction()
 
