@@ -24,7 +24,7 @@ requirements:
     
     build:
         - cmake 3.9
-        - {{ compiler('cxx') }}       # [not win]
+        - {{ compiler('cxx') }}       # [linux]
 
     host:
         {% for req in reqs_host %}
