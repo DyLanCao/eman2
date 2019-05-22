@@ -91,28 +91,12 @@ install(TARGETS EM2
 
 if(ENABLE_FFTW3)
 	find_package(FFTW3 REQUIRED)
+	target_link_libraries(EM2 FFTW3::FFTW3)
 	
 	if(ENABLE_NFFT2)
 		find_package(NFFT2 REQUIRED)
 		target_link_libraries(NFFT2 FFTW3D::FFTW3D)
 	endif()
-endif()
-
-if(WIN32)
-    target_link_libraries(EM2 FFTW3::FFTW3)
-else()
-    if(ENABLE_FFTW3)
-    	target_link_libraries(EM2 FFTW3::FFTW3)
-    endif()
-	target_link_libraries(EM2 m)
-endif()
-
-find_package(GSL REQUIRED)
-if(WIN32)
-	set_target_properties(GSL::gsl
-						  PROPERTIES
-						  INTERFACE_COMPILE_DEFINITIONS GSL_DLL
-						  )
 endif()
 
 target_link_libraries(EM2 GSL::gsl GSL::gslcblas -flat_namespace)
@@ -129,7 +113,6 @@ if(ENABLE_JPEG)
     target_link_libraries(EM2 JPEG::JPEG)
 endif()
 
-include(${CMAKE_SOURCE_DIR}/cmake/HDF5.cmake)
 target_link_libraries(EM2 HDF5::HDF5)
 
 option(ENABLE_PNG "enable PNG support" ON)
