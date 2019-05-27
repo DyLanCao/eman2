@@ -43,24 +43,24 @@ namespace python = boost::python;
 
 using namespace EMAN;
 
-python::numeric::array EMAN::make_numeric_array(const float *const data, vector<npy_intp> dims)
+np::ndarray EMAN::make_numeric_array(const float *const data, vector<npy_intp> dims)
 {
 	python::object obj(python::handle<>(PyArray_SimpleNewFromData(dims.size(),&dims[0],
 	                                                              NPY_FLOAT32, (char*)data)));
 
-	return python::extract<python::numeric::array>(obj);
+	return python::extract<np::ndarray>(obj);
 }
 
-python::numeric::array EMAN::make_numeric_complex_array(const std::complex<float> *const data,
+np::ndarray EMAN::make_numeric_complex_array(const std::complex<float> *const data,
                                                         vector<npy_intp> dims)
 {
 	python::object obj(python::handle<>(PyArray_SimpleNewFromData(dims.size(),&dims[0],
 	                                                              NPY_CFLOAT, (char*)data)));
 
-	return python::extract<python::numeric::array>(obj);
+	return python::extract<np::ndarray>(obj);
 }
 
-python::numeric::array EMNumPy::em2numpy(const EMData *const image)
+np::ndarray EMNumPy::em2numpy(const EMData *const image)
 {
 	float * data = image->get_data();
 	int nx = image->get_xsize();
@@ -82,7 +82,7 @@ python::numeric::array EMNumPy::em2numpy(const EMData *const image)
 	return make_numeric_array(data, dims);
 }
 
-EMData* EMNumPy::numpy2em(const python::numeric::array& array)
+EMData* EMNumPy::numpy2em(const np::ndarray& array)
 {
 	if (!PyArray_Check(array.ptr())) {
 		PyErr_SetString(PyExc_ValueError, "expected a PyArrayObject");
@@ -143,7 +143,7 @@ EMData* EMNumPy::numpy2em(const python::numeric::array& array)
 
 
 
-EMData* EMNumPy::assign_numpy_to_emdata(const python::numeric::array& array)
+EMData* EMNumPy::assign_numpy_to_emdata(const np::ndarray& array)
 {
 	if (!PyArray_Check(array.ptr())) {
 		PyErr_SetString(PyExc_ValueError, "expected a PyArrayObject");
@@ -198,7 +198,7 @@ EMNumPy::~EMNumPy()
 	emdata_buffer.unregister_buffer_data();
 }
 
-EMData* EMNumPy::register_numpy_to_emdata(const python::numeric::array& array)
+EMData* EMNumPy::register_numpy_to_emdata(const np::ndarray& array)
 {
 	if (!PyArray_Check(array.ptr())) {
 		PyErr_SetString(PyExc_ValueError, "expected a PyArrayObject");

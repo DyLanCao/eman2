@@ -70,7 +70,7 @@ BOOST_PYTHON_MODULE(libpyTypeConverter2)
 
 
     init_numpy();
-	python::numeric::array::set_module_and_type("numpy", "ndarray");
+	np::initialize();
 
 
 	EMAN::vector_to_python<int>();
