@@ -36,6 +36,7 @@
 
 // Boost Includes ==============================================================
 #include <boost/python.hpp>
+#include <boost/python/numpy.hpp>
 
 // Includes ====================================================================
 #include <emdata.h>
@@ -52,6 +53,7 @@
 
 // Using =======================================================================
 using namespace boost::python;
+namespace np = boost::python::numpy;
 
 #if PY_MAJOR_VERSION >= 3
 	#define IS_PY3K
@@ -276,7 +278,7 @@ struct EMAN_Util_Wrapper: EMAN::Util
 	PyObject* py_self;
 };*/
 
-using boost::python::numeric::array;
+typedef np::ndarray array;
 
 float* get_fptr( array& a )
 {
